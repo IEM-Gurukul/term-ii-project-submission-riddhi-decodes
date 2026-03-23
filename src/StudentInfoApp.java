@@ -7,16 +7,18 @@ public class StudentInfoApp {
     private JTextField nameField;
     private JComboBox<String> courseBox;
     private JButton saveButton;
+    private JTextArea displayArea;
 
     public StudentInfoApp() {
         frame = new JFrame("Student Information System");
-        frame.setSize(400, 300);
+        frame.setSize(450, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Better layout
-        frame.setLayout(new GridLayout(3, 2, 10, 10));
+        frame.setLayout(new BorderLayout());
 
-        // Components
+        // Top panel (inputs)
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
 
@@ -27,13 +29,22 @@ public class StudentInfoApp {
 
         saveButton = new JButton("Save");
 
+        inputPanel.add(nameLabel);
+        inputPanel.add(nameField);
+        inputPanel.add(courseLabel);
+        inputPanel.add(courseBox);
+        inputPanel.add(new JLabel());
+        inputPanel.add(saveButton);
+
+        // Text area (output)
+        displayArea = new JTextArea();
+        displayArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+
         // Add to frame
-        frame.add(nameLabel);
-        frame.add(nameField);
-        frame.add(courseLabel);
-        frame.add(courseBox);
-        frame.add(new JLabel()); // empty space
-        frame.add(saveButton);
+        frame.add(inputPanel, BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
         frame.setVisible(true);
     }
