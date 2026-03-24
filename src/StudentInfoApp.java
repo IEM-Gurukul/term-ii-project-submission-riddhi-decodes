@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class StudentInfoApp {
 
@@ -13,10 +14,9 @@ public class StudentInfoApp {
         frame = new JFrame("Student Information System");
         frame.setSize(450, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.setLayout(new BorderLayout());
 
-        // Top panel (inputs)
+        // Input panel
         JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
 
         JLabel nameLabel = new JLabel("Name:");
@@ -36,15 +36,24 @@ public class StudentInfoApp {
         inputPanel.add(new JLabel());
         inputPanel.add(saveButton);
 
-        // Text area (output)
+        // Display area
         displayArea = new JTextArea();
         displayArea.setEditable(false);
-
         JScrollPane scrollPane = new JScrollPane(displayArea);
 
-        // Add to frame
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
+
+        // 🔥 ActionListener (IMPORTANT)
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String course = (String) courseBox.getSelectedItem();
+
+                // Show in text area
+                displayArea.append("Name: " + name + ", Course: " + course + "\n");
+            }
+        });
 
         frame.setVisible(true);
     }
