@@ -8,6 +8,7 @@ public class StudentInfoApp {
     private JTextField nameField;
     private JComboBox<String> courseBox;
     private JButton saveButton;
+    private JButton clearButton;
     private JTextArea displayArea;
 
     private RegistrationSystem system = new RegistrationSystem();
@@ -18,8 +19,7 @@ public class StudentInfoApp {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        // Input panel
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 10, 10));
 
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
@@ -30,15 +30,15 @@ public class StudentInfoApp {
         });
 
         saveButton = new JButton("Save");
+        clearButton = new JButton("Clear");
 
         inputPanel.add(nameLabel);
         inputPanel.add(nameField);
         inputPanel.add(courseLabel);
         inputPanel.add(courseBox);
-        inputPanel.add(new JLabel());
         inputPanel.add(saveButton);
+        inputPanel.add(clearButton);
 
-        // Display area
         displayArea = new JTextArea();
         displayArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(displayArea);
@@ -46,14 +46,12 @@ public class StudentInfoApp {
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // 🔥 Button Action with Validation
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 String name = nameField.getText().trim();
                 String course = (String) courseBox.getSelectedItem();
 
-                // ✅ Validation
                 if (name.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Name cannot be empty!");
                     return;
@@ -66,6 +64,14 @@ public class StudentInfoApp {
                 for (Student s : system.getStudents()) {
                     displayArea.append(s.getDetails() + "\n");
                 }
+            }
+        });
+
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                nameField.setText("");
+                courseBox.setSelectedIndex(0);
+                displayArea.setText("");
             }
         });
 
