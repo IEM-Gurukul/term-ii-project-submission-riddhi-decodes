@@ -46,11 +46,18 @@ public class StudentInfoApp {
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Button action
+        // 🔥 Button Action with Validation
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText();
+
+                String name = nameField.getText().trim();
                 String course = (String) courseBox.getSelectedItem();
+
+                // ✅ Validation
+                if (name.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Name cannot be empty!");
+                    return;
+                }
 
                 Student student = new Student(name, course);
                 system.addStudent(student);
