@@ -10,6 +10,8 @@ public class StudentInfoApp {
     private JButton saveButton;
     private JTextArea displayArea;
 
+    private RegistrationSystem system = new RegistrationSystem();
+
     public StudentInfoApp() {
         frame = new JFrame("Student Information System");
         frame.setSize(450, 400);
@@ -44,14 +46,19 @@ public class StudentInfoApp {
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // 🔥 ActionListener (IMPORTANT)
+        // Button action
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 String course = (String) courseBox.getSelectedItem();
 
-                // Show in text area
-                displayArea.append("Name: " + name + ", Course: " + course + "\n");
+                Student student = new Student(name, course);
+                system.addStudent(student);
+
+                displayArea.setText("");
+                for (Student s : system.getStudents()) {
+                    displayArea.append(s.getDetails() + "\n");
+                }
             }
         });
 
