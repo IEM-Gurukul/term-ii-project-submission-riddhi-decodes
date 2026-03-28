@@ -57,6 +57,14 @@ public class StudentInfoApp {
                     return;
                 }
 
+                // Duplicate check
+                for (Student s : system.getStudents()) {
+                    if (s.getDetails().equals("Name: " + name + ", Course: " + course)) {
+                        JOptionPane.showMessageDialog(frame, "Student already registered for this course!");
+                        return;
+                    }
+                }
+
                 Student student = new Student(name, course);
                 system.addStudent(student);
 
