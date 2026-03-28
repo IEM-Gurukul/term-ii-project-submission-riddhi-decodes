@@ -11,3 +11,4 @@ public class RegistrationSystem {
         return students;
     }
 }
+// This class manages student data (Abstraction)

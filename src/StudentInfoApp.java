@@ -90,3 +90,4 @@ public class StudentInfoApp {
         new StudentInfoApp();
     }
 }
+// GUI class handling user interaction
